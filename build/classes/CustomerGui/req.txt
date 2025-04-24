@@ -1,0 +1,7 @@
+this is where you place Jpanels to the Jframe scene,
+for equality use the extended state of 6 for the JFrame and set
+the preferred and minimum size of your screen to be 
+1920 by 1080 in your Jpanel properties
+
+In your Jpanel Use multiple scenes to not have conflicts in your code
+
