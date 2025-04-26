@@ -3,7 +3,6 @@ package Database;
 import Objects.*;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.sql.*;
 
 
@@ -22,32 +21,80 @@ public final class DBHandler {
             System.err.println("Error to connect to database: " + ex);
         }
     }
+    
+    // load image to database
+    public void loadImage(String imgLoc, InvItem item){
         
-    public void loadImages(String folderLoc){
-        String sql = "INSERT INTO gallery (photo) VALUES(?)";
+        String sql1 = "INSERT INTO gallery (photo) VALUES(?)";
+        String sql2 = "INSERT INTO inventory (item,price,quantity) VALUES (?,?,?)";
         
         // gets the data for the images
-        File folder = new File(folderLoc);
+        File imgFile = new File(imgLoc);
+        
+        
+        System.out.println(imgFile.getName());
+        
+        try {
+            PreparedStatement stmt1 = con.prepareStatement(sql1);
+            PreparedStatement stmt2 = con.prepareStatement(sql2);
+
+            FileInputStream fis = new FileInputStream(imgFile);
+            byte[] imgData = fis.readAllBytes();
+
+            stmt2.setString(0, item.getItem());
+            stmt2.setFloat(1, item.getPrice());
+            stmt2.setInt(2, item.getQuantity());
+
+            stmt2.executeUpdate();
+            
+            stmt1.setBytes(1, imgData);
+            stmt1.executeUpdate();
+
+
+            fis.close();
+
+        } catch (Exception ex) {
+            System.err.println("Error to load image: "+ ex);
+        }
+        
+    }
+    
+    // can load multiple images using the unloaded folder
+    public void quickLoad(String fileFolder){
+        
+        String sql1 = "INSERT INTO gallery (photo) VALUES(?)";
+        String sql2 = "INSERT INTO inventory (item) VALUES (?)";
+        
+        // gets the data for the images
+        File folder = new File(fileFolder);
         
         File[] files = folder.listFiles();
         
+        
         if (files != null) {
-            System.out.println(folder.getName());
             for (File file : files) {
                 try {
-                    PreparedStatement stmt = con.prepareStatement(sql);
-                    
+                    PreparedStatement stmt1 = con.prepareStatement(sql1);
+                    PreparedStatement stmt2 = con.prepareStatement(sql2);
+
                     FileInputStream fis = new FileInputStream(file);
                     byte[] imgData = fis.readAllBytes();
+
+                    stmt1.setBytes(1, imgData);
+                    stmt1.executeUpdate();
+
+                    stmt2.setString(0, file.getName());
+                    stmt2.executeUpdate();
                     
-                    stmt.setBytes(1, imgData);
+                    file.delete();
                     
-                    stmt.executeUpdate();
-                    
+                    fis.close();
+
                 } catch (Exception ex) {
                     System.err.println("Error to load image: "+ ex);
                 }
             }
+ 
         }
         
     }

@@ -10,7 +10,15 @@ public class InvItem {
     // Empty constructor
     public InvItem() {
     }
-
+    
+    // Constructor without ID
+    public InvItem(String item, float price, int quantity) {
+        this.id = id;
+        this.item = item;
+        this.price = price;
+        this.quantity = quantity;
+    }
+    
     // Full constructor
     public InvItem(int id, String item, float price, int quantity) {
         this.id = id;
