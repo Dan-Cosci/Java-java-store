@@ -3,6 +3,7 @@ package Database;
 import Objects.*;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
 
 public final class DBHandler {
@@ -52,7 +53,7 @@ public final class DBHandler {
 
             fis.close();
 
-        } catch (Exception ex) {
+        } catch (IOException | SQLException ex) {
             System.err.println("Error to load image: "+ ex);
         }
         
@@ -90,7 +91,7 @@ public final class DBHandler {
                     
                     fis.close();
 
-                } catch (Exception ex) {
+                } catch (IOException | SQLException ex) {
                     System.err.println("Error to load image: "+ ex);
                 }
             }
@@ -185,7 +186,5 @@ public final class DBHandler {
             System.err.println("Failed to close database: " + ex);
         }
     }
-    
-    
     
 }
