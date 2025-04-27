@@ -6,17 +6,19 @@ public class User {
     private String username;
     private String password;
     private String email;
+    private String status;
 
     // Empty constructor
     public User() {
     }
 
     // Full constructor
-    public User(int id, String username, String password, String email) {
+    public User(int id, String username, String password, String email, String status) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.status = status;
     }
 
     // Getters
@@ -35,6 +37,10 @@ public class User {
     public String getEmail() {
         return email;
     }
+    
+    public String getStatus(){
+        return status;
+    }
 
     // Setters
     public void setId(int id) {
@@ -52,6 +58,9 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+    public void setStatus(String status){
+        this.status = status;
+    }
 
     // toString method
     @Override
@@ -61,6 +70,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

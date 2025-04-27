@@ -5,10 +5,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.sql.*;
 
-
 public final class DBHandler {
     
-    // initialize the database
+    // initialize the database connection
     Connection con = null;
     private final String url = "jdbc:sqlite:src/Database/database.db";
     
@@ -99,8 +98,27 @@ public final class DBHandler {
         
     }
     
-    public User getUser(){
-        // TODO
+    public User verifyUser(String username, String password){
+        String sql1 = "SELECT * FROM users WHERE username = ? AND password = ?";
+        
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql1);
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            
+            ResultSet result = stmt.executeQuery();
+            
+            if (result.next()) {
+                return new User(result.getInt("id"), 
+                        result.getString("username"), 
+                        result.getString("password"), 
+                        result.getString("email"), 
+                        result.getString("status"));
+            }
+            
+        } catch (SQLException ex) {
+            System.err.println("Failed to  verify user: "+ ex);
+        }
         
         return null;
     }
