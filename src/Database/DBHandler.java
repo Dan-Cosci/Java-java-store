@@ -103,9 +103,21 @@ public final class DBHandler {
     // login checker and returns user data
     public User verifyUser(String username, String password){
         String sql1 = "SELECT * FROM users WHERE username = ? AND password = ?";
+        String sql2 = "SELECT * FROM users WHERE username = ?";
         
         try {
             PreparedStatement stmt = con.prepareStatement(sql1);
+            PreparedStatement stmt2 = con.prepareStatement(sql2);
+            
+            stmt2.setString(1, username);
+            ResultSet user = stmt2.executeQuery();
+            if (!user.next()) {
+                System.out.println("User does not exist");
+                return null;
+            }
+            
+            
+            
             stmt.setString(1, username);
             stmt.setString(2, password);
             
@@ -117,6 +129,8 @@ public final class DBHandler {
                         result.getString("password"), 
                         result.getString("email"), 
                         result.getString("status"));
+            }else{
+                System.out.println("You have entered The wrong password");
             }
             
         } catch (SQLException ex) {
