@@ -138,10 +138,43 @@ public final class DBHandler {
         return null;
     }
     
-    public InvItem getItem(){
-        // TODO
+    // gets the inventory Item data
+    public InvItem getItem(String item){
+        String sql1 = "SELECT * FROM inventory where item = ?";
+        
+        try {
+            PreparedStatement stmt1 = con.prepareStatement(sql1);
+            stmt1.setString(1, item);
+            
+            ResultSet rs = stmt1.executeQuery();
+            if (rs.next()) {
+                return new InvItem(rs.getInt(1), rs.getString(2), rs.getFloat(3),rs.getInt(4));
+            }
+            
+            
+        } catch (SQLException ex) {
+            System.err.println("Error aquiring the data: "+ex.getMessage());
+        }
         
         return null;
+    }
+    
+    public void updateItem(InvItem item){
+        String sql = "UPDATE inventory SET price = ?, quantity = ? WHERE id = ?";
+        
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setFloat(1, item.getPrice());
+            stmt.setInt(2, item.getQuantity());
+            stmt.setInt(3, item.getId());
+            
+            stmt.executeUpdate();
+            
+        } catch (Exception e) {
+            System.err.println("Failed to update inventory item: " + e.getMessage());
+        }
+        
     }
     
     // connects to tthe database
