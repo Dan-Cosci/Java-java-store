@@ -109,6 +109,7 @@ public final class DBHandler {
             PreparedStatement stmt = con.prepareStatement(sql1);
             PreparedStatement stmt2 = con.prepareStatement(sql2);
             
+            // query to check if the user exist
             stmt2.setString(1, username);
             ResultSet user = stmt2.executeQuery();
             if (!user.next()) {
@@ -116,13 +117,10 @@ public final class DBHandler {
                 return null;
             }
             
-            
-            
+            // query to check if the password is corrects and returns user data
             stmt.setString(1, username);
             stmt.setString(2, password);
-            
             ResultSet result = stmt.executeQuery();
-            
             if (result.next()) {
                 return new User(result.getInt("id"), 
                         result.getString("username"), 
