@@ -159,6 +159,7 @@ public final class DBHandler {
         return null;
     }
     
+    // update the metadata of the item and updates the data base
     public void updateItem(InvItem item){
         String sql = "UPDATE inventory SET price = ?, quantity = ? WHERE id = ?";
         
