@@ -22,6 +22,7 @@ public final class DBHandler {
         }
     }
     
+    
     // load image to database
     public void loadImage(String imgLoc, InvItem item){
         
@@ -111,6 +112,7 @@ public final class DBHandler {
         
     }
     
+    
     // login checker and returns user data
     public User verifyUser(String username, String password){
         String sql1 = "SELECT * FROM users WHERE username = ? AND password = ?";
@@ -148,6 +150,7 @@ public final class DBHandler {
         
         return null;
     }
+    
     
     // gets the inventory Item data
     public InvItem getItem(String item){
@@ -192,6 +195,7 @@ public final class DBHandler {
         }
         
     }
+    
     
     // create Inventory log
     public InvLog createLog(InvItem item, String log){
