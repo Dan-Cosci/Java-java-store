@@ -10,7 +10,7 @@ public class DBtester {
         InvItem obj = db.getItem("canCoke.jpg");
         System.out.println(obj);
         obj.setPrice(25.5f);
-        obj.setQuantity(50);
+        obj.setQuantity(70);
         db.updateItem(obj);
         
     }

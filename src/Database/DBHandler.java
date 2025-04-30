@@ -49,7 +49,8 @@ public final class DBHandler {
             
             stmt1.setBytes(1, imgData);
             stmt1.executeUpdate();
-
+            
+            createLog(item, "Add");
 
             fis.close();
 
@@ -64,6 +65,7 @@ public final class DBHandler {
         
         String sql1 = "INSERT INTO gallery (photo) VALUES(?)";
         String sql2 = "INSERT INTO inventory (item) VALUES (?)";
+        String sql3 = "SELECT * FROM inventory WHERE item = ?";
         
         // gets the data for the images
         File folder = new File(fileFolder);
@@ -74,6 +76,7 @@ public final class DBHandler {
         if (files != null) {
             for (File file : files) {
                 try {
+                    // adds to the database
                     PreparedStatement stmt1 = con.prepareStatement(sql1);
                     PreparedStatement stmt2 = con.prepareStatement(sql2);
 
@@ -85,10 +88,18 @@ public final class DBHandler {
 
                     stmt1.setBytes(1, imgData);
                     stmt1.executeUpdate();
-
+                    
+                    // records the log
+                    PreparedStatement stmt3 = con.prepareStatement(sql3);
+                    
+                    stmt3.setString(1, file.getName());
+                    ResultSet rs = stmt3.executeQuery();
+                    
+                    // add creates and add logs
+                    InvLog log = createLog(new InvItem(rs.getString("item"), rs.getFloat("price"), rs.getInt("quantity")), "Add");
+                    addLog(log);
                     
                     file.delete();
-                    
                     fis.close();
 
                 } catch (IOException | SQLException ex) {
@@ -172,10 +183,36 @@ public final class DBHandler {
             
             stmt.executeUpdate();
             
+            // add log
+            InvLog log = createLog(item, "add");
+            addLog(log);
+            
         } catch (Exception e) {
             System.err.println("Failed to update inventory item: " + e.getMessage());
         }
         
+    }
+    
+    // create Inventory log
+    public InvLog createLog(InvItem item, String log){
+        
+        return new InvLog(item.getId(), log);        
+    }
+    
+    // add logs to the database
+    public void addLog(InvLog log){
+        String sql = "INSERT INTO inventory_log (item_id,date,log) VALUEs (?,DATE('now'),?)";
+        
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, log.getItemId());
+            stmt.setString(2, log.getLog());
+            
+            stmt.executeUpdate();
+            
+        } catch (Exception e) {
+            System.err.println("Error inserting the log: "+ e.getMessage());
+        }
     }
     
     // connects to tthe database
