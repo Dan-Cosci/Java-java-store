@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 
 public final class DBHandler {
     
@@ -42,9 +43,9 @@ public final class DBHandler {
             FileInputStream fis = new FileInputStream(imgFile);
             byte[] imgData = fis.readAllBytes();
 
-            stmt2.setString(0, item.getItem());
-            stmt2.setFloat(1, item.getPrice());
-            stmt2.setInt(2, item.getQuantity());
+            stmt2.setString(1, item.getItem());
+            stmt2.setFloat(2, item.getPrice());
+            stmt2.setInt(3, item.getQuantity());
 
             stmt2.executeUpdate();
             
@@ -93,7 +94,11 @@ public final class DBHandler {
                     // records the log
                     PreparedStatement stmt3 = con.prepareStatement(sql3);
                     
-                    stmt3.setString(1, file.getName());
+                    // removes the '.jpeg' suffix
+                    String fileName = file.getName();
+                    String name = fileName.substring(0, fileName.lastIndexOf("."));
+                    
+                    stmt3.setString(1, name);
                     ResultSet rs = stmt3.executeQuery();
                     
                     // add creates and add logs
@@ -112,6 +117,38 @@ public final class DBHandler {
         
     }
     
+    // gets all users for admin table
+    public ArrayList<User> getAllUsers(User acc){
+        ArrayList<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM users";
+        
+        if (!acc.getStatus().equalsIgnoreCase("admin")) {
+            return users;
+        }
+        
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {                
+                User user = new User(rs.getInt("id"), 
+                                    rs.getString("username"), 
+                                    rs.getString("password"), 
+                                    rs.getString("email"), 
+                                    rs.getString("status"));
+                
+                users.add(user);
+               
+            }
+            
+            return users;
+            
+        } catch (Exception e) {
+            System.err.println("Error getting all user data: "+ e.getMessage());
+        }
+        
+        return users;
+    }
     
     // login checker and returns user data
     public User verifyUser(String username, String password){

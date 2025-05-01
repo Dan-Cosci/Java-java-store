@@ -1,22 +1,80 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package AdminGui;
 
-/**
- *
- * @author LENOVO
- */
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import static javax.swing.SwingConstants.CENTER;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+
 public class DashBoard extends javax.swing.JPanel {
 
-    /**
-     * Creates new form DashBoard
-     */
     public DashBoard() {
         initComponents();
+        initDesign();
     }
-
+    
+    void initDesign(){
+        
+        // set the header design for the table
+        userTable.setRowHeight(25);
+        userTable.setBorder(null);
+        JTableHeader header1 = userTable.getTableHeader();
+        header1.setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus,
+                                                           int row, int column) {
+                JLabel label = (JLabel) super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+                label.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                label.setBackground(new Color(94, 172, 110));
+                label.setForeground(Color.WHITE);
+                label.setHorizontalAlignment(CENTER);
+                label.setOpaque(true);
+                return label;
+            }
+        });
+        
+        inventoryTable.setRowHeight(25);
+        inventoryTable.setBorder(null);
+        JTableHeader header2 = inventoryTable.getTableHeader();
+        header2.setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus,
+                                                           int row, int column) {
+                JLabel label = (JLabel) super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+                label.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                label.setBackground(new Color(94, 172, 110));
+                label.setForeground(Color.WHITE);
+                label.setHorizontalAlignment(CENTER);
+                label.setOpaque(true);
+                return label;
+            }
+        });
+        
+        
+        // adds deselect feature when clicking the outside of the table
+        this.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                if (!userTable.getBounds().contains(evt.getPoint())) {
+                    userTable.clearSelection();
+                }
+                if (!inventoryTable.getBounds().contains(evt.getPoint())) {
+                    inventoryTable.clearSelection();
+                }
+            }
+        });
+        
+        
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,12 +86,18 @@ public class DashBoard extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        InventoryTable = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        inventoryTable = new javax.swing.JTable();
 
-        setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setForeground(new java.awt.Color(100, 100, 100));
+        setToolTipText("");
+        setMinimumSize(new java.awt.Dimension(1055, 720));
+        setPreferredSize(new java.awt.Dimension(1055, 720));
+        setRequestFocusEnabled(false);
 
+        userTable.setBackground(new java.awt.Color(255, 255, 255));
+        userTable.setForeground(new java.awt.Color(100, 100, 100));
         userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -45,9 +109,23 @@ public class DashBoard extends javax.swing.JPanel {
                 "ID", "Username", "Password", "Email", "Type"
             }
         ));
+        userTable.setFocusable(false);
+        userTable.setGridColor(new java.awt.Color(225, 225, 225));
+        userTable.setRowHeight(25);
+        userTable.setSelectionBackground(new java.awt.Color(224, 82, 83));
+        userTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        userTable.setShowGrid(false);
+        userTable.setShowHorizontalLines(true);
+        userTable.getTableHeader().setResizingAllowed(false);
+        userTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(userTable);
+        if (userTable.getColumnModel().getColumnCount() > 0) {
+            userTable.getColumnModel().getColumn(4).setHeaderValue("Type");
+        }
 
-        InventoryTable.setModel(new javax.swing.table.DefaultTableModel(
+        inventoryTable.setBackground(new java.awt.Color(255, 255, 255));
+        inventoryTable.setForeground(new java.awt.Color(100, 100, 100));
+        inventoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -55,38 +133,47 @@ public class DashBoard extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Item", "Price", "Quantity"
             }
         ));
-        jScrollPane2.setViewportView(InventoryTable);
+        inventoryTable.setFocusable(false);
+        inventoryTable.setGridColor(new java.awt.Color(225, 225, 225));
+        inventoryTable.setRowHeight(25);
+        inventoryTable.setSelectionBackground(new java.awt.Color(224, 82, 83));
+        inventoryTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        inventoryTable.setShowGrid(false);
+        inventoryTable.setShowHorizontalLines(true);
+        inventoryTable.getTableHeader().setResizingAllowed(false);
+        inventoryTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(inventoryTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(467, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(361, 361, 361))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(324, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(359, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable InventoryTable;
+    private javax.swing.JTable inventoryTable;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 }
