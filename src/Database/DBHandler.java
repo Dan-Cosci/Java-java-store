@@ -118,13 +118,9 @@ public final class DBHandler {
     }
     
     // gets all users for admin table
-    public ArrayList<User> getAllUsers(User acc){
+    public ArrayList<User> getAllUsers(){
         ArrayList<User> users = new ArrayList<>();
         String sql = "SELECT * FROM users";
-        
-        if (!acc.getStatus().equalsIgnoreCase("admin")) {
-            return users;
-        }
         
         try {
             Statement stmt = con.createStatement();
@@ -182,10 +178,38 @@ public final class DBHandler {
             }
             
         } catch (SQLException ex) {
-            System.err.println("Failed to  verify user: "+ ex);
+            System.err.println("Failed to  verify user: " + ex);
         }
         
         return null;
+    }
+    
+    
+    // returns all items in inventory
+    public ArrayList<InvItem> getInventory(){
+        ArrayList<InvItem> items = new ArrayList<>();
+        String sql = "SELECT * FROM inventory";
+        
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {                
+                InvItem item = new InvItem(rs.getInt("id"), 
+                                        rs.getString("item"), 
+                                        rs.getFloat("price"), 
+                                        rs.getInt("quantity"));
+                
+                items.add(item);
+            }
+            
+            return items;
+            
+        } catch (Exception e) {
+            System.out.println("Failed to get inventory: " + e.getMessage());
+        }
+        
+        return items;
     }
     
     

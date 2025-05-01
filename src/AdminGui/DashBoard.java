@@ -1,12 +1,17 @@
 package AdminGui;
 
+import Database.DBHandler;
+import Objects.InvItem;
+import Objects.User;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public class DashBoard extends javax.swing.JPanel {
@@ -14,9 +19,43 @@ public class DashBoard extends javax.swing.JPanel {
     public DashBoard() {
         initComponents();
         initDesign();
+        loadTable();
     }
     
-    void initDesign(){
+    private void loadTable(){
+        
+        DBHandler db = new DBHandler();
+        
+        ArrayList<User> users = db.getAllUsers();
+        ArrayList<InvItem> items = db.getInventory();
+        
+        DefaultTableModel userModel = (DefaultTableModel) userTable.getModel();
+        userModel.setRowCount(0);
+        
+        DefaultTableModel inventoryModel = (DefaultTableModel) inventoryTable.getModel();
+        inventoryModel.setRowCount(0);
+        
+        for (User user : users) {
+            userModel.addRow(new String[]{String.valueOf(user.getId()),
+                user.getUsername(),
+                user.getPassword(),
+                user.getEmail(),
+                user.getStatus()});
+        }
+        
+        for (InvItem item : items) {
+            inventoryModel.addRow(new String[]{String.valueOf(item.getId()),
+                item.getItem(),
+                String.valueOf(item.getPrice()),
+                String.valueOf(item.getQuantity())
+            });
+        }
+        
+        db.close();
+    }
+    
+    // where the design adjustments are created
+    private void initDesign(){
         
         // set the header design for the table
         userTable.setRowHeight(25);
@@ -89,12 +128,14 @@ public class DashBoard extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         inventoryTable = new javax.swing.JTable();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(214, 217, 223));
         setForeground(new java.awt.Color(100, 100, 100));
         setToolTipText("");
         setMinimumSize(new java.awt.Dimension(1055, 720));
         setPreferredSize(new java.awt.Dimension(1055, 720));
         setRequestFocusEnabled(false);
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
 
         userTable.setBackground(new java.awt.Color(255, 255, 255));
         userTable.setForeground(new java.awt.Color(100, 100, 100));
@@ -122,6 +163,8 @@ public class DashBoard extends javax.swing.JPanel {
         if (userTable.getColumnModel().getColumnCount() > 0) {
             userTable.getColumnModel().getColumn(4).setHeaderValue("Type");
         }
+
+        jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
 
         inventoryTable.setBackground(new java.awt.Color(255, 255, 255));
         inventoryTable.setForeground(new java.awt.Color(100, 100, 100));
@@ -151,21 +194,21 @@ public class DashBoard extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(324, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
                 .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(113, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(359, Short.MAX_VALUE))
+                .addContainerGap(287, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
