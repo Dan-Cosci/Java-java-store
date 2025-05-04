@@ -33,6 +33,7 @@ public class BInterface extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setName("MainFrame"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1280, 720));
         setState(6);
 
         jPanel2.setBackground(new java.awt.Color(94, 172, 110));
