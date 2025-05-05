@@ -23,6 +23,10 @@ public final class DBHandler {
         }
     }
     
+    public void getMostBought(){
+        String sql = "SELECT * FROM";
+    }
+    
     
     // load image to database
     public void loadImage(String imgLoc, InvItem item){
