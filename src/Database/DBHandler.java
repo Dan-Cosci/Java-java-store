@@ -24,7 +24,12 @@ public final class DBHandler {
     }
     
     public void getMostBought(){
-        String sql = "SELECT * FROM";
+        String sql = "SELECT inventory.item, SUM(trans_history.quantity) AS total_quantity" +
+                    "FROM trans_history" +
+                    "JOIN inventory ON trans_history.item_id = inventory.id" +
+                    "GROUP BY trans_history.item_id" +
+                    "ORDER BY total_quantity DESC" +
+                    "LIMIT 1;";
     }
     
     
