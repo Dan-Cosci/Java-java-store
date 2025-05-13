@@ -193,6 +193,43 @@ public final class DBHandler {
         return null;
     }
     
+    // checks if username already exist
+    public boolean UserExists(String usrn){
+        String sql = "SELECT * FROM users WHERE username = ?";
+        
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, usrn);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+            
+        } catch (Exception e) {
+            System.err.println("Error verifying username: "+e.getMessage());
+        }
+        
+        return false;
+    }
+    
+    // adds a new user
+    public void AddUser(String username, String password, String email, String status){
+        String sql = "INSERT INTO users (username, password, email, status) VALUES (?, ?, ?, ?)";
+        
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            stmt.setString(3, email);
+            stmt.setString(4, status);
+            
+            stmt.executeUpdate();
+            
+        } catch (Exception e) {
+            System.err.println("Error inserting new user: " + e.getMessage());
+        }
+    }
+    
     
     // returns all items in inventory
     public ArrayList<InvItem> getInventory(){
