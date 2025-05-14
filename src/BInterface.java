@@ -1,5 +1,6 @@
 
 import AdminGui.AddUser;
+import java.awt.CardLayout;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,6 +14,8 @@ import AdminGui.AddUser;
  */
 public class BInterface extends javax.swing.JFrame {
     
+    CardLayout cardLayout;
+    
     public BInterface() {
         initComponents();
         initDesign();
@@ -20,6 +23,8 @@ public class BInterface extends javax.swing.JFrame {
     }
     
     private void initDesign(){
+        cardLayout = (CardLayout) jPanel3.getLayout();
+        
         jPanel5.setVisible(jToggleButton1.isSelected());
     }
     
@@ -39,6 +44,7 @@ public class BInterface extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         dashBoard1 = new AdminGui.DashBoard();
+        inventoryLogs2 = new AdminGui.InventoryLogs();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -112,12 +118,17 @@ public class BInterface extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/green3.png"))); // NOI18N
-        jButton2.setText("jButton2");
+        jButton2.setText("INVENTORY LOGS");
         jButton2.setBorder(null);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setPreferredSize(new java.awt.Dimension(220, 50));
         jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/green2.png"))); // NOI18N
         jButton2.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/green1.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel5.add(jButton2);
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -169,7 +180,8 @@ public class BInterface extends javax.swing.JFrame {
         jPanel2.add(jButton4);
 
         jPanel3.setLayout(new java.awt.CardLayout());
-        jPanel3.add(dashBoard1, "card2");
+        jPanel3.add(dashBoard1, "dashboard");
+        jPanel3.add(inventoryLogs2, "inventory");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -201,7 +213,7 @@ public class BInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        cardLayout.show(jPanel3, "dashboard");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -215,6 +227,10 @@ public class BInterface extends javax.swing.JFrame {
         revalidate();
         repaint();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        cardLayout.show(jPanel3, "inventory");
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     
     
@@ -252,6 +268,7 @@ public class BInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private AdminGui.DashBoard dashBoard1;
+    private AdminGui.InventoryLogs inventoryLogs2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

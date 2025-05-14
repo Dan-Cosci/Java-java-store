@@ -65,7 +65,6 @@ public class AddUser extends javax.swing.JDialog implements ActionListener{
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add New User");
         setBackground(new java.awt.Color(214, 217, 223));
-        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(94, 172, 110));
 
