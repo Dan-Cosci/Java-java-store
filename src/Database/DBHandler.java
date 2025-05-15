@@ -326,6 +326,16 @@ public final class DBHandler {
         }
     }
     
+    
+    // quick search function
+    public ResultSet quickSearch(String data, String search){
+        ResultSet rs = null;
+        String sql = "SELECT * FROM trans_history";
+        
+        return rs;
+    }
+    
+    
     // connects to tthe database
     public void getconnection() throws SQLException{
         con = DriverManager.getConnection(url);
