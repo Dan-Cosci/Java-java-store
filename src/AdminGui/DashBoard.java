@@ -135,7 +135,7 @@ public class DashBoard extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         inventoryTable = new javax.swing.JTable();
 
-        setBackground(new java.awt.Color(214, 217, 223));
+        setBackground(new java.awt.Color(240, 240, 240));
         setForeground(new java.awt.Color(100, 100, 100));
         setToolTipText("");
         setMinimumSize(new java.awt.Dimension(1055, 720));
