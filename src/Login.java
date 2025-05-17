@@ -1,10 +1,12 @@
 
 import Database.DBHandler;
+import Objects.User;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -32,12 +34,18 @@ public class Login extends javax.swing.JFrame implements ActionListener{
     
     private void initDesign(){
         this.setLocationRelativeTo(null);
+        this.setTitle("Login");
         Image img = new ImageIcon("C:\\Users\\LENOVO\\Documents\\NetBeansProjects\\FinalsJava\\src\\Assets\\logos\\redMiniIcon.png").getImage();
         this.setIconImage(img);
         jImageLabel1.ImageResizeH("C:\\Users\\LENOVO\\Documents\\NetBeansProjects\\FinalsJava\\src\\Assets\\logos\\finalsLogoCustomer.png");
         
         jButton1.addActionListener(this);
         jCheckBox1.addActionListener(this);
+        rootPane.setDefaultButton(jButton1);
+        
+        // debugging
+        jTextField1.setText("Admin");
+        jPasswordField1.setText("123456");
     }
     
     /**
@@ -171,7 +179,7 @@ public class Login extends javax.swing.JFrame implements ActionListener{
 
         jLabel1.setFont(new java.awt.Font("Montserrat Medium", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(80, 80, 80));
-        jLabel1.setText("JAVA-JAVA STORE");
+        jLabel1.setText("JAVA-SARI STORE");
 
         jImageLabel1.setBackground(new java.awt.Color(240, 240, 240));
         jImageLabel1.setMinimumSize(new java.awt.Dimension(300, 300));
@@ -186,9 +194,9 @@ public class Login extends javax.swing.JFrame implements ActionListener{
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,7 +296,13 @@ public class Login extends javax.swing.JFrame implements ActionListener{
        String cmd = e.getActionCommand();
        
         if (cmd.equalsIgnoreCase("login")) {
-            new AInterface().setVisible(true);
+            User user = db.verifyUser(jTextField1.getText(), String.valueOf(jPasswordField1.getPassword()));
+            if (user == null) {
+                JOptionPane.showMessageDialog(rootPane, "You entered a wrong input", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            new BInterface(user).setVisible(true);
+            this.dispose();
         }
         
         if (cmd.equalsIgnoreCase("Show password")) {

@@ -26,6 +26,8 @@ public class AInterface extends javax.swing.JFrame {
         cardLayout = (CardLayout) jPanel3.getLayout();
         
         jPanel5.setVisible(jToggleButton1.isSelected());
+        
+        jImageLabel1.ImageResizeH("C:\\Users\\LENOVO\\Documents\\NetBeansProjects\\FinalsJava\\src\\Assets\\logos\\finalsLogo.png");
     }
     
     @SuppressWarnings("unchecked")
@@ -34,6 +36,8 @@ public class AInterface extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jImageLabel1 = new Objects.JImageLabel();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
@@ -56,19 +60,39 @@ public class AInterface extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(220, 0));
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
-        jPanel4.setBackground(new java.awt.Color(93, 172, 110));
-        jPanel4.setPreferredSize(new java.awt.Dimension(100, 200));
+        jPanel6.setBackground(new java.awt.Color(94, 172, 110));
+        jPanel6.setPreferredSize(new java.awt.Dimension(100, 50));
+        jPanel6.setRequestFocusEnabled(false);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(jPanel6);
+
+        jImageLabel1.setPreferredSize(new java.awt.Dimension(160, 160));
+        jPanel2.add(jImageLabel1);
+
+        jPanel4.setBackground(new java.awt.Color(94, 172, 110));
+        jPanel4.setPreferredSize(new java.awt.Dimension(100, 50));
         jPanel4.setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel4);
@@ -240,11 +264,13 @@ public class AInterface extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private Objects.JImageLabel jImageLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }

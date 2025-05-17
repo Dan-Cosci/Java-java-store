@@ -1,3 +1,13 @@
+
+import CustomerGui.Store;
+import Objects.User;
+import java.awt.CardLayout;
+import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -7,15 +17,44 @@
  *
  * @author LENOVO
  */
-public class BInterface extends javax.swing.JFrame {
+public class BInterface extends javax.swing.JFrame implements ActionListener{
 
-    /**
-     * Creates new form BInterface
-     */
-    public BInterface() {
+    CardLayout cardLayout;
+    User user;
+    
+    Store store = new Store();
+    
+    public BInterface(User user) {
         initComponents();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                initDesign(user);
+            }
+        });
     }
-
+    
+    private void initDesign(User user){
+        this.setLocationRelativeTo(null);
+        this.setTitle("Java-Sari Store");
+        
+        Image img = new ImageIcon("C:\\Users\\LENOVO\\Documents\\NetBeansProjects\\FinalsJava\\src\\Assets\\logos\\redMiniIcon.png").getImage();
+        this.setIconImage(img);
+        
+        jImageLabel1.ImageResizeH("C:\\Users\\LENOVO\\Documents\\NetBeansProjects\\FinalsJava\\src\\Assets\\logos\\customerInterface.png");
+        
+        cardLayout = (CardLayout) jPanel1.getLayout();
+        
+        jPanel1.add(store, "Store");
+        
+        this.user = user;
+        
+        jButton1.addActionListener(this);
+        jButton2.addActionListener(this);
+        jButton3.addActionListener(this);
+        jButton4.addActionListener(this);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -25,57 +64,149 @@ public class BInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jImageLabel1 = new Objects.JImageLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(900, 600));
+        setPreferredSize(new java.awt.Dimension(900, 600));
+        setSize(new java.awt.Dimension(900, 600));
+
+        jPanel1.setBackground(new java.awt.Color(243, 243, 243));
+        jPanel1.setLayout(new java.awt.CardLayout());
+
+        jPanel2.setBackground(new java.awt.Color(224, 83, 82));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+
+        jLabel1.setFont(new java.awt.Font("Montserrat Medium", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("JAVA SARI STORE");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel1.setPreferredSize(new java.awt.Dimension(200, 50));
+        jPanel2.add(jLabel1);
+
+        jImageLabel1.setPreferredSize(new java.awt.Dimension(160, 160));
+        jPanel2.add(jImageLabel1);
+
+        jPanel4.setBackground(new java.awt.Color(224, 82, 83));
+        jPanel4.setPreferredSize(new java.awt.Dimension(150, 50));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(jPanel4);
+
+        jButton1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/red1..png"))); // NOI18N
+        jButton1.setText("Store");
+        jButton1.setBorder(null);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setPreferredSize(new java.awt.Dimension(200, 50));
+        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/red2..png"))); // NOI18N
+        jButton1.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/red3..png"))); // NOI18N
+        jPanel2.add(jButton1);
+
+        jButton2.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/red1..png"))); // NOI18N
+        jButton2.setText("Cart");
+        jButton2.setBorder(null);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setPreferredSize(new java.awt.Dimension(200, 50));
+        jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/red2..png"))); // NOI18N
+        jButton2.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/red3..png"))); // NOI18N
+        jPanel2.add(jButton2);
+
+        jButton3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/red1..png"))); // NOI18N
+        jButton3.setText("History");
+        jButton3.setBorder(null);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setPreferredSize(new java.awt.Dimension(200, 50));
+        jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/red2..png"))); // NOI18N
+        jButton3.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/red3..png"))); // NOI18N
+        jPanel2.add(jButton3);
+
+        jButton4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/red1..png"))); // NOI18N
+        jButton4.setText("Log Out");
+        jButton4.setBorder(null);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setPreferredSize(new java.awt.Dimension(200, 50));
+        jButton4.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/red2..png"))); // NOI18N
+        jButton4.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/red3..png"))); // NOI18N
+        jPanel2.add(jButton4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new BInterface().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private Objects.JImageLabel jImageLabel1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String action = e.getActionCommand();
+        
+        switch (action) {
+            case "Log Out":
+                new Login().setVisible(true);
+                this.dispose();
+                break;
+            case "Store":
+                
+            case "Cart":
+                
+            case "History":
+                System.out.println(action);
+                break;
+            default:
+                // DOES NOTHING
+        }
+        
+    }
 }
