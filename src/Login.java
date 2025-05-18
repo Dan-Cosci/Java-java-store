@@ -44,8 +44,8 @@ public class Login extends javax.swing.JFrame implements ActionListener{
         rootPane.setDefaultButton(jButton1);
         
         // debugging
-        jTextField1.setText("Admin");
-        jPasswordField1.setText("123456");
+        //jTextField1.setText("Admin");
+        //jPasswordField1.setText("123456");
     }
     
     /**
@@ -301,6 +301,13 @@ public class Login extends javax.swing.JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(rootPane, "You entered a wrong input", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            
+            if (user.getStatus().equalsIgnoreCase("admin")) {
+                new AInterface().setVisible(true);
+                this.dispose();
+                return;
+            }
+            
             new BInterface(user).setVisible(true);
             this.dispose();
         }

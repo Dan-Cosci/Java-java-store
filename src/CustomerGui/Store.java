@@ -1,14 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package CustomerGui;
 
 import Database.DBHandler;
 import Objects.InvItem;
-import Objects.User;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Image;
 import java.util.ArrayList;
+
+import javax.swing.JPanel;
 
 /**
  *
@@ -17,22 +17,53 @@ import java.util.ArrayList;
 public class Store extends javax.swing.JPanel {
 
     DBHandler db = new DBHandler();
-    ArrayList<InvItem> items = new ArrayList<InvItem>();
+    
+    ArrayList<InvItem> items;
+    ArrayList<Image> gallery;
+    ArrayList<itemPane> storeItems = new ArrayList<>();
     
     public Store() {
         initComponents();
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                initDesign();
+        EventQueue.invokeLater(() -> initDesign());
+    }
+
+    private void initDesign() {
+        // Use vertical layout for item listing
+        jPanel1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
+
+        generateItems();
+
+        for (itemPane storeItem : storeItems) {
+            storeItem.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+            storeItem.setMaximumSize(new Dimension(230, 300)); // Consistent size
+            jPanel1.add(storeItem);
+        }
+
+        jPanel1.revalidate();
+        jPanel1.repaint();
+    }
+
+    private void generateItems() {
+        items = db.getInventory();
+        gallery = db.getInventoryImage();
+
+        if (items == null || gallery == null) {
+            System.out.println("Error: Inventory or gallery is null.");
+            return;
+        }
+
+        for (int i = 0; i < items.size(); i++) {
+            Image image = (i < gallery.size()) ? gallery.get(i) : null;
+            InvItem item = items.get(i);
+
+            if (image != null && item != null) {
+                itemPane pane = new itemPane(image, item);
+                storeItems.add(pane);
+            } else {
+                System.out.println("Missing data for item index: " + i);
             }
-        });
+        }
     }
-    
-    private void initDesign(){
-        
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,6 +75,7 @@ public class Store extends javax.swing.JPanel {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(243, 243, 243));
 
@@ -57,22 +89,36 @@ public class Store extends javax.swing.JPanel {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 611, Short.MAX_VALUE)
+            .addGap(0, 635, Short.MAX_VALUE)
         );
 
         jScrollPane2.setViewportView(jPanel1);
+
+        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField1.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(100, 100, 100));
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField1.setText("jTextField1");
+        jTextField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(224, 82, 83), 1, true));
+        jTextField1.setPreferredSize(new java.awt.Dimension(500, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 804, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(122, 122, 122)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -80,5 +126,6 @@ public class Store extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

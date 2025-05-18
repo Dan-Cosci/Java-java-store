@@ -54,4 +54,27 @@ public class JImageLabel extends JLabel{
         Image scaledImg = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
         this.setIcon(new ImageIcon(scaledImg));
     }
+
+    public void ImageResizeV(Image img) {
+        // Cast to float to avoid integer division
+        float ratio = (float) this.getHeight() / img.getHeight(null);
+
+        int newWidth = (int) (img.getWidth(null) * ratio);
+        int newHeight = this.getHeight();
+
+        Image scaledImg = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        this.setIcon(new ImageIcon(scaledImg));
+    }
+
+    public void ImageResizeH(Image img) {
+        // Cast to float to avoid integer division
+        float ratio = (float) this.getWidth() / img.getWidth(null);
+
+        int newHeight = (int) (img.getHeight(null) * ratio);
+        int newWidth = this.getWidth();
+
+        Image scaledImg = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        this.setIcon(new ImageIcon(scaledImg));
+    }
+
 }

@@ -1,6 +1,8 @@
 package Database;
 
 import Objects.*;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -258,6 +260,27 @@ public final class DBHandler {
         return items;
     }
     
+    // gets the ArrayList of images
+    public ArrayList<Image> getInventoryImage(){
+        ArrayList<Image> images = new ArrayList<>();
+        String sql = "SELECT photo FROM gallery;";
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                byte[] imageData = rs.getBytes("photo");
+                if (imageData != null && imageData.length > 0) {
+                    Image img = Toolkit.getDefaultToolkit().createImage(imageData);
+                    images.add(img);  // Note: loading is async by default
+                }
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Failed to get photos: " +e.getMessage());
+        }
+        
+        return images;
+    }
     
     // gets the inventory Item data
     public InvItem getItem(String item){

@@ -36,9 +36,9 @@ public class AInterface extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jImageLabel1 = new Objects.JImageLabel();
-        jPanel4 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel5 = new javax.swing.JPanel();
@@ -46,6 +46,7 @@ public class AInterface extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         dashBoard1 = new AdminGui.DashBoard();
         inventoryLogs2 = new AdminGui.InventoryLogs();
@@ -60,45 +61,27 @@ public class AInterface extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(220, 0));
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
-        jPanel6.setBackground(new java.awt.Color(94, 172, 110));
-        jPanel6.setPreferredSize(new java.awt.Dimension(100, 50));
-        jPanel6.setRequestFocusEnabled(false);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(jPanel6);
+        jLabel1.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("JAVA SARI STORE");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel1.setPreferredSize(new java.awt.Dimension(200, 80));
+        jPanel2.add(jLabel1);
 
         jImageLabel1.setPreferredSize(new java.awt.Dimension(160, 160));
         jPanel2.add(jImageLabel1);
 
-        jPanel4.setBackground(new java.awt.Color(94, 172, 110));
-        jPanel4.setPreferredSize(new java.awt.Dimension(100, 50));
-        jPanel4.setRequestFocusEnabled(false);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(jPanel4);
+        jLabel2.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("ADMIN PANEL");
+        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel2.setPreferredSize(new java.awt.Dimension(200, 30));
+        jPanel2.add(jLabel2);
 
         jButton1.setBackground(new java.awt.Color(94, 172, 110));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/green1.png"))); // NOI18N
         jButton1.setText("HOME");
@@ -117,7 +100,7 @@ public class AInterface extends javax.swing.JFrame {
         });
         jPanel2.add(jButton1);
 
-        jToggleButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jToggleButton1.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
         jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/green1.png"))); // NOI18N
         jToggleButton1.setText("HISTORY");
@@ -138,7 +121,7 @@ public class AInterface extends javax.swing.JFrame {
         jPanel5.setPreferredSize(new java.awt.Dimension(220, 100));
         jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/green3.png"))); // NOI18N
         jButton2.setText("INVENTORY LOGS");
@@ -154,7 +137,7 @@ public class AInterface extends javax.swing.JFrame {
         });
         jPanel5.add(jButton2);
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton5.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/green3.png"))); // NOI18N
         jButton5.setText("jButton5");
@@ -168,7 +151,7 @@ public class AInterface extends javax.swing.JFrame {
         jPanel2.add(jPanel5);
 
         jButton3.setBackground(new java.awt.Color(94, 172, 110));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/green1.png"))); // NOI18N
         jButton3.setText("ADD ITEM");
@@ -183,7 +166,7 @@ public class AInterface extends javax.swing.JFrame {
         jPanel2.add(jButton3);
 
         jButton4.setBackground(new java.awt.Color(94, 172, 110));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/green1.png"))); // NOI18N
         jButton4.setText("ADD USER");
@@ -201,6 +184,26 @@ public class AInterface extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton4);
+
+        jButton6.setBackground(new java.awt.Color(94, 172, 110));
+        jButton6.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/green1.png"))); // NOI18N
+        jButton6.setText("LOG OUT");
+        jButton6.setBorder(null);
+        jButton6.setBorderPainted(false);
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setMaximumSize(new java.awt.Dimension(200, 50));
+        jButton6.setMinimumSize(new java.awt.Dimension(200, 50));
+        jButton6.setPreferredSize(new java.awt.Dimension(220, 50));
+        jButton6.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/green3.png"))); // NOI18N
+        jButton6.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/green2.png"))); // NOI18N
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton6);
 
         jPanel3.setLayout(new java.awt.CardLayout());
         jPanel3.add(dashBoard1, "dashboard");
@@ -254,6 +257,11 @@ public class AInterface extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         cardLayout.show(jPanel3, "inventory");
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        new Login().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -264,13 +272,14 @@ public class AInterface extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private Objects.JImageLabel jImageLabel1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
