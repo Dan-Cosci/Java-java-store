@@ -1,6 +1,7 @@
 package CustomerGui;
 
 import Objects.InvItem;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
@@ -15,14 +16,13 @@ public class itemPane extends javax.swing.JPanel implements MouseListener{
     Image img;
     InvItem item;
     
+    Color regular = new Color(255,255,255);
+    Color hover = new Color(250,250,250);
+    Color clicked = new Color(253, 230, 230);
+    
     public itemPane(Image img, InvItem item) {
         initComponents();
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                initDesign(img, item);
-            }
-        });
+        EventQueue.invokeLater(() -> initDesign(img, item));
     }
     
     private void initDesign(Image img, InvItem item){
@@ -32,6 +32,8 @@ public class itemPane extends javax.swing.JPanel implements MouseListener{
         jImageLabel1.ImageResizeV(img);
         jLabel1.setText(item.getItem());
         jLabel2.setText(String.valueOf(item.getPrice()));
+        
+        this.addMouseListener(this);
         
     }
     /**
@@ -101,21 +103,21 @@ public class itemPane extends javax.swing.JPanel implements MouseListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        this.setBackground(clicked);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        this.setBackground(regular);
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        this.setBackground(hover);
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        this.setBackground(regular);
     }
 }

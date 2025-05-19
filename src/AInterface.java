@@ -76,8 +76,7 @@ public class AInterface extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("ADMIN PANEL");
-        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel2.setPreferredSize(new java.awt.Dimension(200, 30));
+        jLabel2.setPreferredSize(new java.awt.Dimension(200, 40));
         jPanel2.add(jLabel2);
 
         jButton1.setBackground(new java.awt.Color(94, 172, 110));
