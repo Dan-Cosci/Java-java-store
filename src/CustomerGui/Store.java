@@ -6,9 +6,10 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
-
-import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -22,26 +23,54 @@ public class Store extends javax.swing.JPanel {
     ArrayList<Image> gallery;
     ArrayList<itemPane> storeItems = new ArrayList<>();
     
+    ArrayList<InvItem> cartItems = new ArrayList<>();
+    
     public Store() {
         initComponents();
-        EventQueue.invokeLater(() -> initDesign());
+        EventQueue.invokeLater(() -> {initDesign();
+            jScrollPane2.getViewport().addComponentListener(new ComponentAdapter() {
+                @Override
+                public void componentResized(ComponentEvent evt){
+                    initDesign();
+                }
+            });
+            jScrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        });
     }
 
     private void initDesign() {
-        // Use vertical layout for item listing
-        jPanel1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
+        // Set FlowLayout with LEFT alignment and spacing
+        jPanel1.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
+        // Clear previous items if re-rendering
+        jPanel1.removeAll();
+        storeItems.clear();
+
+        // Generate and add items
         generateItems();
 
         for (itemPane storeItem : storeItems) {
-            storeItem.setAlignmentX(JPanel.CENTER_ALIGNMENT);
-            storeItem.setMaximumSize(new Dimension(230, 300)); // Consistent size
+            storeItem.setPreferredSize(new Dimension(230, 300)); // fixed size for each item
             jPanel1.add(storeItem);
         }
 
+        // Estimate number of items per row based on current viewport width
+        int viewportWidth = jScrollPane2.getViewport().getWidth();
+        int itemsPerRow = viewportWidth / 240; // 230 width + 10px spacing
+        if (itemsPerRow < 1) itemsPerRow = 1;
+
+        // Calculate required height for jPanel1 based on number of rows
+        int rowCount = (int) Math.ceil((double) storeItems.size() / itemsPerRow);
+        int totalHeight = rowCount * 310; // 300 height + 10 spacing
+
+        // Set preferred size for scroll content panel
+        jPanel1.setPreferredSize(new Dimension(viewportWidth, totalHeight));
+
+        // Repaint and revalidate to apply changes
         jPanel1.revalidate();
         jPanel1.repaint();
     }
+
 
     private void generateItems() {
         items = db.getInventory();
@@ -57,12 +86,21 @@ public class Store extends javax.swing.JPanel {
             InvItem item = items.get(i);
 
             if (image != null && item != null) {
-                itemPane pane = new itemPane(image, item);
+                itemPane pane = new itemPane(image, item, this);
                 storeItems.add(pane);
             } else {
                 System.out.println("Missing data for item index: " + i);
             }
         }
+    }
+    
+    public void addToCart(InvItem purchase, int quantity){
+        purchase.setQuantity(quantity);
+        purchase.setPrice(purchase.getPrice()*quantity);
+        
+        cartItems.add(purchase);
+        
+        System.out.println(cartItems);
     }
     /**
      * This method is called from within the constructor to initialize the form.

@@ -1,4 +1,5 @@
 
+import CustomerGui.Cart;
 import CustomerGui.Store;
 import Objects.User;
 import java.awt.CardLayout;
@@ -23,6 +24,7 @@ public class BInterface extends javax.swing.JFrame implements ActionListener{
     User user;
     
     Store store = new Store();
+    Cart cart =  new Cart();
     
     public BInterface(User user) {
         initComponents();
@@ -46,6 +48,7 @@ public class BInterface extends javax.swing.JFrame implements ActionListener{
         cardLayout = (CardLayout) jPanel1.getLayout();
         
         jPanel1.add(store, "Store");
+        jPanel1.add(cart, "Cart");
         
         this.user = user;
         
@@ -198,8 +201,12 @@ public class BInterface extends javax.swing.JFrame implements ActionListener{
                 this.dispose();
                 break;
             case "Store":
+                cardLayout.show(jPanel1, "Store");
+                break;
                 
             case "Cart":
+                cardLayout.show(jPanel1, "Cart");
+                break;
                 
             case "History":
                 System.out.println(action);
