@@ -1,22 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package CustomerGui;
+
+import Objects.InvItem;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  *
  * @author LENOVO
  */
 public class ItemReciept extends javax.swing.JPanel {
+    
+    InvItem item;
+    Image img;
+    
+    public ItemReciept(InvItem item) {
+        this.item = item;
+        this.img = img;
 
-    /**
-     * Creates new form ItemReciept
-     */
-    public ItemReciept() {
         initComponents();
+        EventQueue.invokeLater(()-> initDesign());
     }
 
+    private void initDesign() {
+        // Set dynamic size for scroll container compatibility
+        this.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 135));
+        this.setPreferredSize(new java.awt.Dimension(647, 135));
+
+        jLabel1.setText(item.getItem());
+        jLabel2.setText(String.valueOf(item.getQuantity()));
+        jLabel5.setText(String.valueOf(item.getPrice()));
+
+        jLabel3.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) { System.out.println("hello"); }
+            public void mouseEntered(MouseEvent e) { jLabel3.setFont(new Font("Montserrat", 1, 10)); }
+            public void mouseExited(MouseEvent e) { jLabel3.setFont(new Font("Montserrat", 0, 10)); }
+        });
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,19 +50,95 @@ public class ItemReciept extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jRoundPanel1 = new Objects.JRoundPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jRoundPanel1Layout = new javax.swing.GroupLayout(jRoundPanel1);
+        jRoundPanel1.setLayout(jRoundPanel1Layout);
+        jRoundPanel1Layout.setHorizontalGroup(
+            jRoundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 142, Short.MAX_VALUE)
+        );
+        jRoundPanel1Layout.setVerticalGroup(
+            jRoundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 123, Short.MAX_VALUE)
+        );
+
+        jLabel1.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(100, 100, 100));
+        jLabel1.setText("PLACEHOLDER TEXT");
+
+        jLabel2.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(100, 100, 100));
+        jLabel2.setText("QUANTITY");
+
+        jLabel3.setFont(new java.awt.Font("Montserrat", 0, 10)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(224, 82, 83));
+        jLabel3.setText("REMOVE");
+
+        jLabel4.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(100, 100, 100));
+        jLabel4.setText("ADD");
+
+        jLabel5.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(100, 100, 100));
+        jLabel5.setText("PRICE");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRoundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(153, 153, 153)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)))
+                    .addComponent(jRoundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private Objects.JRoundPanel jRoundPanel1;
     // End of variables declaration//GEN-END:variables
 }

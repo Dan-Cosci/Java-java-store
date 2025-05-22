@@ -19,11 +19,11 @@ public class Store extends javax.swing.JPanel {
 
     DBHandler db = new DBHandler();
     
-    ArrayList<InvItem> items;
-    ArrayList<Image> gallery;
-    ArrayList<itemPane> storeItems = new ArrayList<>();
+    private ArrayList<InvItem> items;
+    private ArrayList<Image> gallery;
+    private ArrayList<itemPane> storeItems = new ArrayList<>();
     
-    ArrayList<InvItem> cartItems = new ArrayList<>();
+    public ArrayList<InvItem> cartItems = new ArrayList<>();
     
     public Store() {
         initComponents();

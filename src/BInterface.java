@@ -24,7 +24,7 @@ public class BInterface extends javax.swing.JFrame implements ActionListener{
     User user;
     
     Store store = new Store();
-    Cart cart =  new Cart();
+    Cart cart =  new Cart(store);
     
     public BInterface(User user) {
         initComponents();
@@ -206,6 +206,7 @@ public class BInterface extends javax.swing.JFrame implements ActionListener{
                 
             case "Cart":
                 cardLayout.show(jPanel1, "Cart");
+                cart.loadCart();
                 break;
                 
             case "History":

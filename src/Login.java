@@ -8,11 +8,6 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 /**
  *
  * @author LENOVO
@@ -44,8 +39,8 @@ public class Login extends javax.swing.JFrame implements ActionListener{
         rootPane.setDefaultButton(jButton1);
         
         // debugging
-        //jTextField1.setText("Admin");
-        //jPasswordField1.setText("123456");
+        jTextField1.setText("Pacifica");
+        jPasswordField1.setText("123456");
     }
     
     /**
@@ -304,6 +299,12 @@ public class Login extends javax.swing.JFrame implements ActionListener{
             
             if (user.getStatus().equalsIgnoreCase("admin")) {
                 new AInterface().setVisible(true);
+                this.dispose();
+                return;
+            }
+            
+            if (user.getStatus().equalsIgnoreCase("employee")) {
+                new CInterface().setVisible(true);
                 this.dispose();
                 return;
             }
