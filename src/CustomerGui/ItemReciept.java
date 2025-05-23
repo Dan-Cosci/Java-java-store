@@ -34,12 +34,14 @@ public class ItemReciept extends javax.swing.JPanel {
         jLabel5.setText(String.valueOf(item.getPrice()));
 
         jLabel3.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) { System.out.println("hello"); }
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("remove");
+            }
+            
             public void mouseEntered(MouseEvent e) { jLabel3.setFont(new Font("Montserrat", 1, 10)); }
             public void mouseExited(MouseEvent e) { jLabel3.setFont(new Font("Montserrat", 0, 10)); }
         });
     }
-
     
     /**
      * This method is called from within the constructor to initialize the form.
