@@ -15,10 +15,12 @@ public class ItemReciept extends javax.swing.JPanel {
     
     InvItem item;
     Image img;
+    Cart cart;
     
-    public ItemReciept(InvItem item) {
+    public ItemReciept(InvItem item, Cart cart) {
         this.item = item;
         this.img = img;
+        this.cart = cart;
 
         initComponents();
         EventQueue.invokeLater(()-> initDesign());
@@ -35,7 +37,9 @@ public class ItemReciept extends javax.swing.JPanel {
 
         jLabel3.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                System.out.println("remove");
+                cart.store.cartItems.remove(item);
+                cart.loadCart();
+                System.out.println(cart.store.cartItems);
             }
             
             public void mouseEntered(MouseEvent e) { jLabel3.setFont(new Font("Montserrat", 1, 10)); }
