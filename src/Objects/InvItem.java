@@ -1,11 +1,15 @@
 package Objects;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 public class InvItem {
 
     private int id;
     private String item;
     private float price;
     private int quantity;
+    private Image img;
 
     // Empty constructor
     public InvItem() {
@@ -19,13 +23,24 @@ public class InvItem {
     }
     
     // Full constructor
-    public InvItem(int id, String item, float price, int quantity) {
+    public InvItem(int id, String item, float price, int quantity, byte[] img) {
         this.id = id;
         this.item = item;
         this.price = price;
         this.quantity = quantity;
+        this.img = imgConvert(img);
+        
     }
 
+    // image converter
+    private Image imgConvert(byte[] img){
+        Image returnImage = null;
+        
+        returnImage = Toolkit.getDefaultToolkit().createImage(img);
+        
+        return returnImage;
+    }
+    
     // Getters
     public int getId() {
         return id;
@@ -41,6 +56,10 @@ public class InvItem {
 
     public int getQuantity() {
         return quantity;
+    }
+    
+    public Image getImage() {
+        return img;
     }
 
     // Setters
@@ -59,6 +78,10 @@ public class InvItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    
+    public void setImage(Image img) {
+        this.img = img;
+    }
 
     // toString method (for easy printing)
     @Override
@@ -68,6 +91,7 @@ public class InvItem {
                 ", item='" + item + '\'' +
                 ", price=" + price +
                 ", quantity=" + quantity +
+                ", hasImage=" + img.toString() +
                 '}';
     }
 }

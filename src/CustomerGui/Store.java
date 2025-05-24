@@ -74,19 +74,17 @@ public class Store extends javax.swing.JPanel {
 
     private void generateItems() {
         items = db.getInventory();
-        gallery = db.getInventoryImage();
 
-        if (items == null || gallery == null) {
+        if (items == null) {
             System.out.println("Error: Inventory or gallery is null.");
             return;
         }
 
         for (int i = 0; i < items.size(); i++) {
-            Image image = (i < gallery.size()) ? gallery.get(i) : null;
             InvItem item = items.get(i);
 
-            if (image != null && item != null) {
-                itemPane pane = new itemPane(image, item, this);
+            if (item != null) {
+                itemPane pane = new itemPane(item.getImage(), item, this);
                 storeItems.add(pane);
             } else {
                 System.out.println("Missing data for item index: " + i);

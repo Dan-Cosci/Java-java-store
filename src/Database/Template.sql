@@ -10,12 +10,8 @@ CREATE TABLE IF NOT EXISTS inventory (
     id       INTEGER      PRIMARY KEY AUTOINCREMENT UNIQUE,
     item     TEXT         UNIQUE NOT NULL,
     price    REAL (32, 2) NOT NULL DEFAULT (0),
-    quantity INTEGER      NOT NULL DEFAULT (0) 
-);
-
-CREATE TABLE IF NOT EXISTS gallery (
-    item_id INTEGER PRIMARY KEY NOT NULL REFERENCES inventory (id),
-    photo   BLOB    NOT NULL
+    quantity INTEGER      NOT NULL DEFAULT (0),
+    photo    BLOB         NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS trans_history (
