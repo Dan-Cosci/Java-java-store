@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 /**
@@ -20,7 +21,6 @@ public class Store extends javax.swing.JPanel {
     DBHandler db = new DBHandler();
     
     private ArrayList<InvItem> items;
-    private ArrayList<Image> gallery;
     private ArrayList<itemPane> storeItems = new ArrayList<>();
     
     public ArrayList<InvItem> cartItems = new ArrayList<>();
@@ -84,7 +84,7 @@ public class Store extends javax.swing.JPanel {
             InvItem item = items.get(i);
 
             if (item != null) {
-                itemPane pane = new itemPane(item.getImage(), item, this);
+                itemPane pane = new itemPane(item, this);
                 storeItems.add(pane);
             } else {
                 System.out.println("Missing data for item index: " + i);
@@ -97,8 +97,8 @@ public class Store extends javax.swing.JPanel {
         purchase.setPrice(purchase.getPrice()*quantity);
         
         cartItems.add(purchase);
-        
-        System.out.println(cartItems);
+        JOptionPane.showMessageDialog(null, "Sucessfully added "+ purchase.getItem(), "Item Added", JOptionPane.INFORMATION_MESSAGE);
+//        System.out.println(cartItems);
     }
     /**
      * This method is called from within the constructor to initialize the form.

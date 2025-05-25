@@ -1,11 +1,15 @@
 package CustomerGui;
 
 import Objects.InvItem;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -14,36 +18,55 @@ import java.awt.event.MouseEvent;
 public class ItemReciept extends javax.swing.JPanel {
     
     InvItem item;
-    Image img;
     Cart cart;
     
     public ItemReciept(InvItem item, Cart cart) {
         this.item = item;
-        this.img = img;
         this.cart = cart;
 
         initComponents();
+        
+        this.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 60));
+        this.setPreferredSize(new java.awt.Dimension(647, 60));
+        this.setMinimumSize(new java.awt.Dimension(647, 60));
+        this.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        this.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(243,243,243)));
+        
         EventQueue.invokeLater(()-> initDesign());
     }
 
     private void initDesign() {
         // Set dynamic size for scroll container compatibility
-        this.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 135));
-        this.setPreferredSize(new java.awt.Dimension(647, 135));
+        this.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 60));
+        this.setPreferredSize(new java.awt.Dimension(647, 60));
 
         jLabel1.setText(item.getItem());
         jLabel2.setText(String.valueOf(item.getQuantity()));
         jLabel5.setText(String.valueOf(item.getPrice()));
-
+        
+        // fuctionality of the remove button
         jLabel3.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                cart.store.cartItems.remove(item);
-                cart.loadCart();
-                System.out.println(cart.store.cartItems);
+                if (JOptionPane.showConfirmDialog(cart, "Are you sure?", "Item Removal", JOptionPane.YES_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
+                    cart.store.cartItems.remove(item);
+                    cart.loadCart();
+//                    System.out.println(cart.store.cartItems);
+                }
             }
             
-            public void mouseEntered(MouseEvent e) { jLabel3.setFont(new Font("Montserrat", 1, 10)); }
-            public void mouseExited(MouseEvent e) { jLabel3.setFont(new Font("Montserrat", 0, 10)); }
+            public void mouseEntered(MouseEvent e) { jLabel3.setFont(new Font("Montserrat", 1, 12)); }
+            public void mouseExited(MouseEvent e) { jLabel3.setFont(new Font("Montserrat", 0, 12)); }
+        });
+        
+        // funtionality of the add button
+        jLabel4.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                
+            }
+            
+            public void mouseEntered(MouseEvent e) { jLabel4.setFont(new Font("Montserrat", 1, 12)); }
+            public void mouseExited(MouseEvent e) { jLabel4.setFont(new Font("Montserrat", 0, 12)); }
         });
     }
     
@@ -56,7 +79,6 @@ public class ItemReciept extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jRoundPanel1 = new Objects.JRoundPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -64,17 +86,9 @@ public class ItemReciept extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jRoundPanel1Layout = new javax.swing.GroupLayout(jRoundPanel1);
-        jRoundPanel1.setLayout(jRoundPanel1Layout);
-        jRoundPanel1Layout.setHorizontalGroup(
-            jRoundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 142, Short.MAX_VALUE)
-        );
-        jRoundPanel1Layout.setVerticalGroup(
-            jRoundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 123, Short.MAX_VALUE)
-        );
+        setMaximumSize(new java.awt.Dimension(361, 59));
+        setMinimumSize(new java.awt.Dimension(361, 59));
+        setPreferredSize(new java.awt.Dimension(361, 59));
 
         jLabel1.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(100, 100, 100));
@@ -84,11 +98,11 @@ public class ItemReciept extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(100, 100, 100));
         jLabel2.setText("QUANTITY");
 
-        jLabel3.setFont(new java.awt.Font("Montserrat", 0, 10)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(224, 82, 83));
         jLabel3.setText("REMOVE");
 
-        jLabel4.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(100, 100, 100));
         jLabel4.setText("ADD");
 
@@ -102,17 +116,13 @@ public class ItemReciept extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRoundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(153, 153, 153)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 87, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
@@ -122,18 +132,14 @@ public class ItemReciept extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)))
-                    .addComponent(jRoundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -145,6 +151,5 @@ public class ItemReciept extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private Objects.JRoundPanel jRoundPanel1;
     // End of variables declaration//GEN-END:variables
 }

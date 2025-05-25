@@ -13,7 +13,6 @@ import java.awt.event.MouseListener;
  */
 public class itemPane extends javax.swing.JPanel implements MouseListener{
 
-    Image img;
     InvItem item;
     Store store;
     
@@ -21,13 +20,12 @@ public class itemPane extends javax.swing.JPanel implements MouseListener{
     Color hover = new Color(250,250,250);
     Color clicked = new Color(253, 230, 230);
     
-    public itemPane(Image img, InvItem item, Store store) {
+    public itemPane(InvItem item, Store store) {
         initComponents();
-        EventQueue.invokeLater(() -> initDesign(img, item, store));
+        EventQueue.invokeLater(() -> initDesign(item, store));
     }
     
-    private void initDesign(Image img, InvItem item, Store store){
-        this.img = img;
+    private void initDesign(InvItem item, Store store){
         this.item = item;
         this.store = store;
         
@@ -36,7 +34,7 @@ public class itemPane extends javax.swing.JPanel implements MouseListener{
         
         this.addMouseListener(this);
         
-        EventQueue.invokeLater(() -> {jImageLabel1.ImageResizeV(img);});
+        EventQueue.invokeLater(() -> {jImageLabel1.ImageResizeV(item.getImage());});
         
     }
     /**

@@ -1,6 +1,7 @@
 package Objects;
 
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -62,8 +63,10 @@ public class JImageLabel extends JLabel{
         int newWidth = (int) (img.getWidth(null) * ratio);
         int newHeight = this.getHeight();
 
-        Image scaledImg = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-        this.setIcon(new ImageIcon(scaledImg));
+        EventQueue.invokeLater(()->{
+            Image scaledImg = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+            this.setIcon(new ImageIcon(scaledImg));
+        });
     }
 
     public void ImageResizeH(Image img) {
