@@ -9,7 +9,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
-import javax.swing.border.LineBorder;
 
 /**
  *

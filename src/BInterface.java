@@ -23,7 +23,7 @@ public class BInterface extends javax.swing.JFrame implements ActionListener{
     CardLayout cardLayout;
     User user;
     
-    Store store = new Store();
+    Store store = new Store(user);
     Cart cart =  new Cart(store);
     
     public BInterface(User user) {
@@ -82,6 +82,7 @@ public class BInterface extends javax.swing.JFrame implements ActionListener{
         setExtendedState(6);
         setMinimumSize(new java.awt.Dimension(900, 600));
         setSize(new java.awt.Dimension(900, 600));
+        setState(6);
 
         jPanel1.setBackground(new java.awt.Color(243, 243, 243));
         jPanel1.setLayout(new java.awt.CardLayout());
