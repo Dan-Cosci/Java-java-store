@@ -50,6 +50,12 @@ public class InvLog {
         return log;
     }
     
+    public String getDateString(){
+        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+        String formattedDate = formatter.format(date);
+        return formattedDate;
+    }
+    
     public Date getDate(){
         return date;
     }
@@ -74,6 +80,7 @@ public class InvLog {
                 "id=" + id +
                 ", itemId=" + itemId +
                 ", log='" + log + '\'' +
+                ", date='" +  date +'\'' +
                 '}';
     }
 }

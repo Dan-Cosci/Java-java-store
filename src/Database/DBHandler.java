@@ -312,6 +312,31 @@ public final class DBHandler {
         }
     }
     
+    // gets all Inventory logs
+    public ArrayList<InvLog> getInvLog(){
+        
+        String sql = "SELECT * FROM inventory_log";
+        ArrayList<InvLog> logs = new ArrayList<>();
+        try {
+            Statement smtm = con.createStatement();
+            ResultSet rs = smtm.executeQuery(sql);
+            
+            while (rs.next()) {                
+                logs.add(new InvLog(rs.getInt("id"),
+                                    rs.getInt("item_id"),
+                                    rs.getString("log"),
+                                    rs.getString("date")
+                ));
+            }
+            
+        } catch (Exception e) {
+            System.err.println("Error loading the inventory history: "+e.getMessage());
+        }
+        
+        
+        return logs;
+    }
+    
     
     // quick search function
     public ResultSet quickSearch(String data, String search){

@@ -1,15 +1,20 @@
 package AdminGui;
 
 import Database.DBHandler;
+import Objects.InvItem;
+import Objects.InvLog;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public class InventoryLogs extends javax.swing.JPanel implements ActionListener{
@@ -18,7 +23,7 @@ public class InventoryLogs extends javax.swing.JPanel implements ActionListener{
     
     public InventoryLogs() {
         initComponents();
-        initDesign();
+        EventQueue.invokeLater(()-> {initDesign();});
     }
     
     private void initDesign(){
@@ -43,6 +48,8 @@ public class InventoryLogs extends javax.swing.JPanel implements ActionListener{
             }
         });
         
+        loadTable();
+        
         // add actionlister to the button
         jButton1.addActionListener(this);
         jButton2.addActionListener(this);
@@ -51,7 +58,18 @@ public class InventoryLogs extends javax.swing.JPanel implements ActionListener{
     }
     
     private void loadTable(){
+        ArrayList<InvLog> items = db.getInvLog();
+        DefaultTableModel model = (DefaultTableModel) transTable.getModel();
+        model.setRowCount(0);
         
+        for (InvLog item : items) {
+            model.addRow(new String[]{String.valueOf(item.getId()),
+                                    String.valueOf(item.getItemId()),
+                                    "unkown",
+                                    item.getDateString(),
+                                    item.getLog()
+            });
+        }
     }
     
     /**
@@ -221,6 +239,16 @@ public class InventoryLogs extends javax.swing.JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
+        String cmd = e.getActionCommand();
+        
+        switch (cmd) {
+            case "Reload Table":
+                loadTable();
+                
+                break;
+            default:
+                System.out.println(cmd);
+        }
+        
     }
 }
