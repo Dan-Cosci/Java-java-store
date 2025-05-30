@@ -22,6 +22,14 @@ public class InvItem {
         this.quantity = quantity;
     }
     
+    // Full constructor with the image
+    public InvItem(int id, String item, float price, int quantity) {
+        this.id = id;
+        this.item = item;
+        this.price = price;
+        this.quantity = quantity;
+    }
+    
     // Full constructor
     public InvItem(int id, String item, float price, int quantity, byte[] img) {
         this.id = id;
@@ -29,7 +37,6 @@ public class InvItem {
         this.price = price;
         this.quantity = quantity;
         this.img = imgConvert(img);
-        
     }
 
     // image converter

@@ -11,14 +11,17 @@ public class InvLog {
     private int id;
     private int itemId;
     private String log;
+    private String item;
     private Date date;
     
+    // partial constructor
     public InvLog(int id, int itemId, String log) {
         this.id = id;
         this.itemId = itemId;
         this.log = log;
     }
     
+    // constructor with out the product name
     public InvLog(int id, int itemId, String log, String date) {
         this.id = id;
         this.itemId = itemId;
@@ -32,8 +35,24 @@ public class InvLog {
         }
     }
     
-    public InvLog(int itemId, String log) {
+    // full constructor
+    public InvLog(int id, int itemId, String item, String log, String date) {
+        this.id = id;
+        this.item = item;
         this.itemId = itemId;
+        this.log = log;
+
+        try {
+            SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd");
+            this.date = form.parse(date);
+        } catch (ParseException ex) {
+            System.err.println("Failed to parse date: " +ex.getMessage());
+        }
+    }
+    
+    public InvLog(int itemId, String item,String log) {
+        this.itemId = itemId;
+        this.item = item;
         this.log = log;
     }
     
@@ -50,16 +69,20 @@ public class InvLog {
         return log;
     }
     
+    public String getItem(){
+        return item;
+    }
+    
     public String getDateString(){
         SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
         String formattedDate = formatter.format(date);
         return formattedDate;
     }
-    
     public Date getDate(){
         return date;
     }
 
+    
     // Setters
     public void setId(int id) {
         this.id = id;
@@ -71,6 +94,10 @@ public class InvLog {
 
     public void setLog(String log) {
         this.log = log;
+    }
+    
+    public void setItem(String item){
+        this.item = item;
     }
 
     // toString method

@@ -98,7 +98,7 @@ public final class DBHandler {
 
                     ResultSet rs = selectStmt.executeQuery();
                     if (rs.next()) {
-                        InvLog log = createLog(new InvItem(rs.getString("item"), rs.getFloat("price"), rs.getInt("quantity")), "Add");
+                        InvLog log = createLog(new InvItem(rs.getInt("id"),rs.getString("item"), rs.getFloat("price"), rs.getInt("quantity")), "Add");
                         addLog(log);
                     }
 
@@ -293,17 +293,18 @@ public final class DBHandler {
     // create Inventory log
     public InvLog createLog(InvItem item, String log){
         
-        return new InvLog(item.getId(), log);        
+        return new InvLog(item.getId(),item.getItem(), log);        
     }
     
     // add logs to the database
     public void addLog(InvLog log){
-        String sql = "INSERT INTO inventory_log (item_id,date,log) VALUEs (?,DATE('now'),?)";
+        String sql = "INSERT INTO inventory_log (item_id, item_name, date, log) VALUEs (?, ?, DATE('now'), ?)";
         
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, log.getItemId());
-            stmt.setString(2, log.getLog());
+            stmt.setString(2, log.getItem());
+            stmt.setString(3, log.getLog());
             
             stmt.executeUpdate();
             
@@ -375,11 +376,12 @@ public final class DBHandler {
                 "date TEXT NOT NULL" +
             ");",
 
-            "CREATE TABLE IF NOT EXISTS inventory_log (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "item_id INTEGER NOT NULL REFERENCES inventory(id)," +
-                "date TEXT NOT NULL," +
-                "log TEXT NOT NULL" +
+            "CREATE TABLE inventory_log ("+
+                "id        INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                "item_id   INTEGER NOT NULL REFERENCES inventory (id),"+
+                "item_name TEXT    REFERENCES inventory (item),"+
+                "date      TEXT    NOT NULL,"+
+                "log       TEXT    NOT NULL"+
             ");"
         };
 
