@@ -39,7 +39,7 @@ public class Login extends javax.swing.JFrame implements ActionListener{
         rootPane.setDefaultButton(jButton1);
         
         // debugging
-        jTextField1.setText("Pacifica");
+        jTextField1.setText("Admin");
         jPasswordField1.setText("123456");
     }
     
@@ -189,12 +189,9 @@ public class Login extends javax.swing.JFrame implements ActionListener{
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap(38, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addComponent(jImageLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -299,17 +296,20 @@ public class Login extends javax.swing.JFrame implements ActionListener{
             
             if (user.getStatus().equalsIgnoreCase("admin")) {
                 new AInterface().setVisible(true);
+                db.close();
                 this.dispose();
                 return;
             }
             
             if (user.getStatus().equalsIgnoreCase("employee")) {
                 new CInterface().setVisible(true);
+                db.close();
                 this.dispose();
                 return;
             }
             
             new BInterface(user).setVisible(true);
+            db.close();
             this.dispose();
         }
         

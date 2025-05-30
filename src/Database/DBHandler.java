@@ -376,13 +376,15 @@ public final class DBHandler {
                 "date TEXT NOT NULL" +
             ");",
 
-            "CREATE TABLE inventory_log ("+
+            "CREATE TABLE IF NOT EXISTS inventory_log ("+
                 "id        INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 "item_id   INTEGER NOT NULL REFERENCES inventory (id),"+
                 "item_name TEXT    REFERENCES inventory (item),"+
                 "date      TEXT    NOT NULL,"+
                 "log       TEXT    NOT NULL"+
             ");"
+//            ,"INSERT OR IGNORE INTO users (username, password, email, status) VALUES('Admin','123456','admin@gmail.com','admin')",
+//            "INSERT OR IGNORE INTO users (username, password, email, status) VALUES('Pacifica','123456','pacifica@gmail.com','user')",
         };
 
         Statement stmt = con.createStatement();
