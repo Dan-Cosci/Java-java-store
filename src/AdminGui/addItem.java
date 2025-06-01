@@ -2,13 +2,16 @@ package AdminGui;
 
 import Database.DBHandler;
 import Objects.InvItem;
+import Objects.InvLog;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import static javax.swing.SwingConstants.CENTER;
@@ -20,6 +23,8 @@ public class addItem extends javax.swing.JPanel {
 
     DBHandler db = new DBHandler();
     ArrayList<InvItem> items = new ArrayList<>();
+    
+    InvItem selected;
     
     public addItem() {
         initComponents();
@@ -58,12 +63,24 @@ public class addItem extends javax.swing.JPanel {
                 int row = itemTable.getSelectedRow();
                 int id = Integer.parseInt((String) itemTable.getValueAt(row, 0)) - 1;
                 
-                InvItem selected = items.get(id);
+                selected = items.get(id);
                 jTextField1.setText(selected.getItem());
                 jTextField2.setText(String.valueOf(selected.getPrice()));
                 jTextField3.setText(String.valueOf(selected.getQuantity()));
                 jImageLabel1.ImageResizeV(selected.getImage());
                 
+            }
+        });
+        
+        jImageLabel1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e){
+                JFileChooser fc = new JFileChooser();
+                fc.showOpenDialog(null);
+                File f = fc.getSelectedFile();
+                if (f != null) {
+                    jImageLabel1.ImageResizeV(f.getAbsolutePath());
+                }
             }
         });
     }
@@ -137,6 +154,11 @@ public class addItem extends javax.swing.JPanel {
 
         jButton2.setText("UPDATE");
         jButton2.setToolTipText("");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -227,9 +249,19 @@ public class addItem extends javax.swing.JPanel {
         jTextField1.setText("");
         jTextField2.setText("");
         jTextField3.setText("");
-        jTextField4.setText("");
         jImageLabel1.setIcon(null);
+        
+        selected = null;
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        selected.setItem(jTextField1.getText());
+        selected.setPrice(Float.parseFloat(jTextField2.getText()));
+        selected.setQuantity(Integer.parseInt(jTextField3.getText()));
+        
+        db.updateItem(selected);
+        db.addLog(new InvLog(selected.getId(), selected.getItem(), "null"));
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

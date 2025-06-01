@@ -2,6 +2,7 @@ package Objects;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class InvItem {
 
@@ -87,6 +88,11 @@ public class InvItem {
     }
     
     public void setImage(Image img) {
+        this.img = img;
+    }
+    public void setImage(String imgLoc) {
+        ImageIcon icon = new ImageIcon(imgLoc);
+        Image img = icon.getImage();
         this.img = img;
     }
 
