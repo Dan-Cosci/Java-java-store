@@ -50,6 +50,7 @@ public class AInterface extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         dashBoard1 = new AdminGui.DashBoard();
         inventoryLogs2 = new AdminGui.InventoryLogs();
+        addItem1 = new AdminGui.addItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -167,6 +168,11 @@ public class AInterface extends javax.swing.JFrame {
         jButton3.setPreferredSize(new java.awt.Dimension(220, 50));
         jButton3.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/green3.png"))); // NOI18N
         jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/green2.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton3);
 
         jButton4.setBackground(new java.awt.Color(94, 172, 110));
@@ -212,6 +218,7 @@ public class AInterface extends javax.swing.JFrame {
         jPanel3.setLayout(new java.awt.CardLayout());
         jPanel3.add(dashBoard1, "dashboard");
         jPanel3.add(inventoryLogs2, "inventory");
+        jPanel3.add(addItem1, "addItem");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -270,9 +277,14 @@ public class AInterface extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        cardLayout.show(jPanel3, "addItem");
+    }//GEN-LAST:event_jButton3ActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private AdminGui.addItem addItem1;
     private AdminGui.DashBoard dashBoard1;
     private AdminGui.InventoryLogs inventoryLogs2;
     private javax.swing.JButton jButton1;

@@ -160,6 +160,7 @@ public class DashBoard extends javax.swing.JPanel {
         userTable.setFocusable(false);
         userTable.setGridColor(new java.awt.Color(225, 225, 225));
         userTable.setRowHeight(25);
+        userTable.setRowSelectionAllowed(false);
         userTable.setSelectionBackground(new java.awt.Color(224, 82, 83));
         userTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
         userTable.setShowGrid(false);
@@ -189,6 +190,7 @@ public class DashBoard extends javax.swing.JPanel {
         inventoryTable.setFocusable(false);
         inventoryTable.setGridColor(new java.awt.Color(225, 225, 225));
         inventoryTable.setRowHeight(25);
+        inventoryTable.setRowSelectionAllowed(false);
         inventoryTable.setSelectionBackground(new java.awt.Color(224, 82, 83));
         inventoryTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
         inventoryTable.setShowGrid(false);

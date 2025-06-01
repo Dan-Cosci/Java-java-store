@@ -5,8 +5,11 @@
         <group>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/FinalsJava/src/Database/DBHandler.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/FinalsJava/src/AInterface.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/FinalsJava/src/AdminGui/DashBoard.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/FinalsJava/src/AdminGui/InventoryLogs.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/FinalsJava/src/AdminGui/DashBoard.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/FinalsJava/src/AdminGui/addItem.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/FinalsJava/src/Login.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/FinalsJava/src/Objects/InvLog.java</file>
         </group>
     </open-files>
 </project-private>

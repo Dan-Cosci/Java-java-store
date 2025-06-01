@@ -65,7 +65,7 @@ public class InventoryLogs extends javax.swing.JPanel implements ActionListener{
         for (InvLog item : items) {
             model.addRow(new String[]{String.valueOf(item.getId()),
                                     String.valueOf(item.getItemId()),
-                                    "unkown",
+                                    item.getItem(),
                                     item.getDateString(),
                                     item.getLog()
             });
