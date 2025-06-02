@@ -39,7 +39,7 @@ public class InvItem {
         this.quantity = quantity;
         this.img = imgConvert(img);
     }
-
+   
     // image converter
     private Image imgConvert(byte[] img){
         Image returnImage = null;

@@ -7,6 +7,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -19,12 +21,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-public class addItem extends javax.swing.JPanel {
+public class addItem extends javax.swing.JPanel implements ActionListener{
 
     DBHandler db = new DBHandler();
     ArrayList<InvItem> items = new ArrayList<>();
     
-    InvItem selected;
+    InvItem selected = new InvItem();
+    String imgLoc;
     
     public addItem() {
         initComponents();
@@ -59,7 +62,7 @@ public class addItem extends javax.swing.JPanel {
         
         itemTable.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 int row = itemTable.getSelectedRow();
                 int id = Integer.parseInt((String) itemTable.getValueAt(row, 0)) - 1;
                 
@@ -80,9 +83,14 @@ public class addItem extends javax.swing.JPanel {
                 File f = fc.getSelectedFile();
                 if (f != null) {
                     jImageLabel1.ImageResizeV(f.getAbsolutePath());
+                    imgLoc = f.getAbsolutePath();
+                    jButton2.setText("ADD");
                 }
             }
         });
+        
+        jButton1.addActionListener(this);
+        jButton2.addActionListener(this);
     }
     
     public void loadTable(){
@@ -146,19 +154,9 @@ public class addItem extends javax.swing.JPanel {
         jTextField4.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
         jButton1.setText("CLEAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jButton2.setText("UPDATE");
         jButton2.setToolTipText("");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -244,25 +242,6 @@ public class addItem extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        itemTable.clearSelection();
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-        jImageLabel1.setIcon(null);
-        
-        selected = null;
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        selected.setItem(jTextField1.getText());
-        selected.setPrice(Float.parseFloat(jTextField2.getText()));
-        selected.setQuantity(Integer.parseInt(jTextField3.getText()));
-        
-        db.updateItem(selected);
-        db.addLog(new InvLog(selected.getId(), selected.getItem(), "null"));
-    }//GEN-LAST:event_jButton2ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable itemTable;
@@ -276,4 +255,42 @@ public class addItem extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String action = e.getActionCommand();
+        switch (action) {
+            case "CLEAR":
+                itemTable.clearSelection();
+                jTextField1.setText("");
+                jTextField2.setText("");
+                jTextField3.setText("");
+                jImageLabel1.setIcon(null);
+
+                selected = null;
+                jButton2.setText("UPDATE");
+                loadTable();
+                break;
+            
+            case "UPDATE":
+                selected.setItem(jTextField1.getText());
+                selected.setPrice(Float.parseFloat(jTextField2.getText()));
+                selected.setQuantity(Integer.parseInt(jTextField3.getText()));
+                selected.setImage(imgLoc);
+
+                db.updateItem(selected, jTextField4.getText());
+                
+                break;
+            case "ADD":
+                selected.setItem(jTextField1.getText());
+                selected.setPrice(Float.parseFloat(jTextField2.getText()));
+                selected.setQuantity(Integer.parseInt(jTextField3.getText()));
+                selected.setImage(imgLoc);
+
+                db.addItem(imgLoc, selected, jTextField4.getText());
+                
+                break;
+            default:
+        }
+    }
 }

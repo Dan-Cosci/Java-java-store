@@ -33,34 +33,6 @@ public final class DBHandler {
                     "ORDER BY total_quantity DESC" +
                     "LIMIT 1;";
     }
-    
-    
-    // Load image to database
-    public void loadImage(String imgLoc, InvItem item) {
-
-        String sql = "INSERT INTO inventory (item, price, quantity, photo) VALUES (?, ?, ?, ?)";
-
-        File imgFile = new File(imgLoc);
-
-        System.out.println(imgFile.getName());
-
-        try (FileInputStream fis = new FileInputStream(imgFile)) {
-            byte[] imgData = fis.readAllBytes();
-
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, item.getItem());
-            stmt.setFloat(2, item.getPrice());
-            stmt.setInt(3, item.getQuantity());
-            stmt.setBytes(4, imgData);
-
-            stmt.executeUpdate();
-
-            createLog(item, "Add");
-
-        } catch (IOException | SQLException ex) {
-            System.err.println("Error loading image: " + ex);
-        }
-    }
 
     
     // Can load multiple images using the unloaded folder
@@ -267,7 +239,7 @@ public final class DBHandler {
     }
     
     // update the metadata of the item and updates the data base
-    public void updateItem(InvItem item){
+    public void updateItem(InvItem item, String logStr){
         String sql = "UPDATE inventory SET price = ?, quantity = ? WHERE id = ?";
         
         try {
@@ -280,13 +252,44 @@ public final class DBHandler {
             stmt.executeUpdate();
             
             // add log
-            InvLog log = createLog(item, "add");
+            InvLog log = createLog(item, logStr);
             addLog(log);
             
         } catch (Exception e) {
             System.err.println("Failed to update inventory item: " + e.getMessage());
         }
         
+    }
+    
+    // adds new inventory Item
+    public void addItem(String imgLoc, InvItem item, String log) {
+
+        String sql = "INSERT INTO inventory (item, price, quantity, photo) VALUES (?, ?, ?, ?)";
+        String sql2 = "SELECT *  FROM inventory WHERE item = ?";
+
+        File imgFile = new File(imgLoc);
+
+        System.out.println(imgFile.getName());
+
+        try (FileInputStream fis = new FileInputStream(imgFile)) {
+            byte[] imgData = fis.readAllBytes();
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, item.getItem());
+            stmt.setFloat(2, item.getPrice());
+            stmt.setInt(3, item.getQuantity());
+            stmt.setBytes(4, imgData);
+            stmt.executeUpdate();
+            
+            PreparedStatement stmt2 = con.prepareStatement(sql2); 
+            stmt.setString(1, item.getItem());
+            ResultSet rs = stmt2.executeQuery();
+            
+            addLog(createLog(new InvItem(rs.getInt("id"), rs.getString("item"), rs.getFloat("price"), rs.getInt("quantity")), log));
+
+        } catch (IOException | SQLException ex) {
+            System.err.println("Error loading image: " + ex);
+        }
     }
     
     
