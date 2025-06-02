@@ -328,6 +328,7 @@ public final class DBHandler {
             while (rs.next()) {                
                 logs.add(new InvLog(rs.getInt("id"),
                                     rs.getInt("item_id"),
+                                    rs.getString("item_name"),
                                     rs.getString("log"),
                                     rs.getString("date")
                 ));
@@ -342,12 +343,47 @@ public final class DBHandler {
     }
     
     
-    // quick search function
-    public ResultSet quickSearch(String data, String search){
-        ResultSet rs = null;
-        String sql = "SELECT * FROM trans_history";
+    // quick search function for inventory logs
+    public ArrayList<InvLog> quickSearch(String search, int Mode){
         
-        return rs;
+        ArrayList<InvLog> arr = new ArrayList<>();
+        String sql = "SELECT * FROM trans_history WHERE ? = ?";
+        ResultSet rs = null;
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            switch (Mode) {
+                case 0: // Item Search
+                    stmt.setString(1, "item");
+                    stmt.setString(2, search);
+                    rs = stmt.executeQuery();
+                    
+                    break;
+                case 1: // ID search
+                    stmt.setString(1, "id");
+                    stmt.setString(2, search);
+                    rs = stmt.executeQuery();
+                    
+                    break;
+                default:
+            }
+            
+            // adds items to the arrayList
+            while (rs.next()) {                
+                arr.add(new InvLog(
+                        rs.getInt("id"), 
+                        rs.getInt("item_id"), 
+                        rs.getString("item_name"),
+                        rs.getString("log") , 
+                        rs.getString("date")));
+            }
+            
+        } catch (Exception e) {
+            System.err.println("Search did not work Error: "+e.getMessage());
+        }
+        
+        return arr;
     }
     
     
@@ -373,16 +409,16 @@ public final class DBHandler {
             
             "CREATE TABLE IF NOT EXISTS trans_history (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL," +
-                "item_id INTEGER NOT NULL REFERENCES inventory(id)," +
-                "user_id INTEGER NOT NULL REFERENCES users(id)," +
+                "item_id INTEGER NOT NULL REFERENCES inventory(id) ON DELETE CASCADE," +
+                "user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE," +
                 "quantity INTEGER NOT NULL," +
                 "date TEXT NOT NULL" +
             ");",
 
             "CREATE TABLE IF NOT EXISTS inventory_log ("+
                 "id        INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                "item_id   INTEGER NOT NULL REFERENCES inventory (id),"+
-                "item_name TEXT    REFERENCES inventory (item),"+
+                "item_id   INTEGER NOT NULL REFERENCES inventory (id) ON DELETE CASCADE,"+
+                "item_name TEXT    REFERENCES inventory (item) ON DELETE CASCADE,"+
                 "date      TEXT    NOT NULL,"+
                 "log       TEXT    NOT NULL"+
             ");"
