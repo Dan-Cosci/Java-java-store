@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public final class DBHandler {
     
@@ -310,11 +311,54 @@ public final class DBHandler {
             stmt.setString(3, log.getLog());
             
             stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Insert Success", "Success", JOptionPane.INFORMATION_MESSAGE);
+            
             
         } catch (Exception e) {
             System.err.println("Error inserting the log: "+ e.getMessage());
         }
     }
+    
+    // update only the log message and date for an existing log entry
+    public void updateLog(InvLog log) {
+        String sql = "UPDATE inventory_log SET log = ?, date = DATE('now') WHERE id = ?";
+        
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, log.getLog());
+            stmt.setInt(2, log.getId()); // assumes InvLog has getId()
+
+            int rows = stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Rows updated: " + rows, "Table update", JOptionPane.INFORMATION_MESSAGE);
+
+
+        } catch (Exception e) {
+            System.err.println("Error updating the log: " + e.getMessage());
+        }
+    }
+        
+    // Deletes a log from inventory_log using only the log ID
+    public void deleteLog(int logId) {
+        String sql = "DELETE FROM inventory_log WHERE id = ?";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, logId);
+
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Log deleted successfully");
+                JOptionPane.showMessageDialog(null, "Log deleted successfully", "Log Deleted", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No log found with ID: " + logId, "ID not exist", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error deleting the log: " + e.getMessage());
+        }
+    }
+
     
     // gets all Inventory logs
     public ArrayList<InvLog> getInvLog(){
@@ -344,48 +388,51 @@ public final class DBHandler {
     
     
     // quick search function for inventory logs
-    public ArrayList<InvLog> quickSearch(String search, int Mode){
-        
+    public ArrayList<InvLog> quickSearch(String search, int Mode) {
         ArrayList<InvLog> arr = new ArrayList<>();
-        String sql = "SELECT * FROM trans_history WHERE ? = ?";
-        ResultSet rs = null;
+        String sql = "";
+
+        switch (Mode) {
+            case 0: // Item Name Search
+                sql = "SELECT * FROM inventory_log WHERE item_name = ?";
+                break;
+            case 1: // ID Search
+                sql = "SELECT * FROM inventory_log WHERE id = ?";
+                break;
+            default:
+                System.err.println("Invalid search mode");
+                return arr;
+        }
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            
-            switch (Mode) {
-                case 0: // Item Search
-                    stmt.setString(1, "item");
-                    stmt.setString(2, search);
-                    rs = stmt.executeQuery();
-                    
-                    break;
-                case 1: // ID search
-                    stmt.setString(1, "id");
-                    stmt.setString(2, search);
-                    rs = stmt.executeQuery();
-                    
-                    break;
-                default:
+
+            if (Mode == 1) {
+                stmt.setInt(1, Integer.parseInt(search));
+            } else {
+                stmt.setString(1, search);
             }
-            
+
+            ResultSet rs = stmt.executeQuery();
+
             // adds items to the arrayList
-            while (rs.next()) {                
+            while (rs.next()) {
                 arr.add(new InvLog(
-                        rs.getInt("id"), 
-                        rs.getInt("item_id"), 
-                        rs.getString("item_name"),
-                        rs.getString("log") , 
-                        rs.getString("date")));
+                    rs.getInt("id"),
+                    rs.getInt("item_id"),
+                    rs.getString("item_name"),
+                    rs.getString("log"),
+                    rs.getString("date")
+                ));
             }
-            
+
         } catch (Exception e) {
-            System.err.println("Search did not work Error: "+e.getMessage());
+            System.err.println("Search did not work. Error: " + e.getMessage());
         }
-        
+
         return arr;
     }
-    
+
     
     // connects to tthe database
     public void getconnection() throws SQLException{
